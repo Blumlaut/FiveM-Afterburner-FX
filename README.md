@@ -5,6 +5,8 @@ This script is a replica of the GTA V Singleplayer Mod "Universal Afterburners f
 
 
 You are allowed to:
+
+
 	Download and Use this script
 	
 	Modify this script to better fit your needs
@@ -16,6 +18,8 @@ You are allowed to:
 	
 	
 You are **NOT** allowed to:
+
+
 	Redistribute, Sell or Create a Mirror of this script
 	
 	Claim Ownership of this Product
