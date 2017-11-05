@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
 			until not finished
 			EndFindVehicle(handle)
 			
-			if GetVehiclePedIsIn( PlayerPedId(), false ) then
+			if GetVehiclePedIsIn( PlayerPedId(), false ) and IsThisModelAPlane(GetEntityModel(GetVehiclePedIsIn(PlayerPedId(),false) ) ) then
 				tryAfterburner( GetVehiclePedIsIn(PlayerPedId(),false))
 			end
 			
