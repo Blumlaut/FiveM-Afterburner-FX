@@ -1,4 +1,4 @@
-fx_version 'bodacious
+fx_version 'bodacious'
 game 'gta5'
 
-client_script 'cient.lua'
+client_script 'client.lua'
