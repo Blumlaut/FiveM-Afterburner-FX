@@ -1,8 +1,5 @@
-afterburners = {} -- keep these empty
-activeAfterburners = {} -- keep these empty
+afterburners, activeAfterburners, VehiclesHash, Vehicles = {}, {}, {}, {} -- keep these empty
 Scale = 1.0 -- afterburner scale, too high may result in your plane getting damaged
-VehiclesHash = {} -- keep these empty
-Vehicles = {} -- keep these empty
 BlacklistedVehicles = {"hydra","CargoPlane"} -- blacklisted vehicles, add new blacklisted vehicles to this
 ABStyle = 2 -- after burner style, 2 for the "rocket voltic" style or 1 for the normal afterburner look, 2 is generally preferred
 known = false -- must be false.
@@ -26,43 +23,37 @@ else
 end
 	
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(50)
-		
+		Wait(50)
 		local handle, veh = FindFirstVehicle()
 		local finished = false -- FindNextPed will turn the first variable to false when it fails to find another ped in the index
 		repeat
 			model = GetEntityModel(veh)
-			if IsThisModelAPlane(model) and GetVehiclePedIsIn( PlayerPedId(), false ) == veh then
+			if IsThisModelAPlane(model) and GetVehiclePedIsIn(PlayerPedId(), false) == veh then
 				tryAfterburner(veh)
 			end
 			local finished, veh = FindNextVehicle(handle) -- first param returns true while entities are found
 			model = GetEntityModel(veh)
-			if IsThisModelAPlane(model) and GetVehiclePedIsIn( PlayerPedId(), false ) == veh then
+			if IsThisModelAPlane(model) and GetVehiclePedIsIn(PlayerPedId(), false) == veh then
 				tryAfterburner(veh)
 			end
 			until not finished
 			EndFindVehicle(handle)
 			
-			if GetVehiclePedIsIn( PlayerPedId(), false ) and IsThisModelAPlane(GetEntityModel(GetVehiclePedIsIn(PlayerPedId(),false) ) ) then
-				tryAfterburner( GetVehiclePedIsIn(PlayerPedId(),false))
-			end
-			
-			
-				
+			if GetVehiclePedIsIn(PlayerPedId(), false) and IsThisModelAPlane(GetEntityModel(GetVehiclePedIsIn(PlayerPedId(),false))) then
+				tryAfterburner(GetVehiclePedIsIn(PlayerPedId(),false))
+			end				
 	end
 end)
 
 
-Citizen.CreateThread(function()
-
-	function tryAfterburner(veh)
+CreateThread(function() function tryAfterburner(veh)
 		known = false
 		
 		for i,theVeh in pairs(Vehicles) do
 			if DoesEntityExist(theVeh) then
-				if not IsVehicleDriveable(theVeh,true) then
+				if not IsVehicleDriveable(theVeh, true) then
 					KillAfterburner(theVeh)
 				end
 			else
@@ -70,8 +61,8 @@ Citizen.CreateThread(function()
 			end
 		end
 	
-		model = GetEntityModel( veh )
-		if IsVehicleDriveable( veh, true ) then
+		model = GetEntityModel(veh)
+		if IsVehicleDriveable(veh, true) then
 			for i,theVeh in pairs(Vehicles) do
 				if theVeh == veh then
 					known = true
@@ -88,7 +79,7 @@ Citizen.CreateThread(function()
 				Update(veh)
 			end
 		end
-		if not IsVehicleDriveable(veh,true) then
+		if not IsVehicleDriveable(veh, true) then
 			KillAfterburner(veh)
 		end
 		
@@ -142,6 +133,4 @@ Citizen.CreateThread(function()
 			end
 		end
 	end
-				
-		
 end)
